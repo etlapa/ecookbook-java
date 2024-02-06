@@ -1,4 +1,4 @@
-package collections.streams.hashMapCollector;
+package collections.streams.listToHashMapCollector;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 public class HashMapCollector {
     public static void main(String[] args){
         HashMapCollector hashMapCollector = new HashMapCollector();
-        hashMapCollector.createHashMap();
+        log.info("accountNames: {}",hashMapCollector.getHashMap());
     }
-    private void createHashMap(){
+    public Map<String,String> getHashMap(){
         Map<String,String> accountNames = createList().stream().collect(Collectors.toMap(
                 Account::getAccountId,
                 account -> {
@@ -26,8 +26,7 @@ public class HashMapCollector {
                     return sj.toString();
                 }
         ));
-
-        log.info("accountNames: {}",accountNames);
+        return accountNames;
     }
     private List<Account> createList(){
         List<Account> accounts = new ArrayList<>();
