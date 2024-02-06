@@ -1,41 +1,97 @@
-plugins {
-    id 'groovy'
-    id 'java'
+buildscript {
+
+  repositories {
+    mavenLocal()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath("com.diffplug.spotless:spotless-plugin-gradle:${spotlessVersion}")
+  }
 }
 
-group 'mx.edev'
-version '1.0-SNAPSHOT'
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'com.diffplug.spotless'
 
 repositories {
-    mavenCentral()
+  mavenLocal()
+  mavenCentral()
 }
 
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+//plugins {
+//    id 'groovy'
+//    id 'java'
+//}
+//
+//group 'mx.edev'
+//version '1.0-SNAPSHOT'
+
 dependencies {
-    implementation "org.codehaus.groovy:groovy-all:${groovyVersion}"
+  implementation "org.codehaus.groovy:groovy-all:${groovyVersion}"
 
-    implementation("org.slf4j:slf4j-api:${slf4jVersion}")
-    implementation("org.slf4j:slf4j-simple:${slf4jVersion}")
+  implementation("org.slf4j:slf4j-api:${slf4jVersion}")
+  implementation("org.slf4j:slf4j-simple:${slf4jVersion}")
 
-    implementation("org.projectlombok:lombok:${lombokVersion}")
-    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+  implementation("org.projectlombok:lombok:${lombokVersion}")
+  annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
 
-//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+  //    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+  //    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
-    // mandatory dependencies for using Spock
-    testImplementation platform("org.spockframework:spock-bom:2.3-groovy-4.0")
-    testImplementation "org.spockframework:spock-core"
-    testImplementation "org.spockframework:spock-junit4"  // you can remove this if your code does not rely on old JUnit 4 rules
+  // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+  implementation("org.apache.commons:commons-lang3:${apacheCommonsVersion}")
 
-    // optional dependencies for using Spock
-    testImplementation "org.hamcrest:hamcrest-core:2.2"   // only necessary if Hamcrest matchers are used
-    testRuntimeOnly 'net.bytebuddy:byte-buddy:1.14.11' // allows mocking of classes (in addition to interfaces)
-    testRuntimeOnly "org.objenesis:objenesis:3.3"      // allows mocking of classes without default constructor (together with ByteBuddy or CGLIB)
+  // mandatory dependencies for using Spock
+  testImplementation platform("org.spockframework:spock-bom:2.3-groovy-4.0")
+  testImplementation "org.spockframework:spock-core"
+  testImplementation "org.spockframework:spock-junit4"  // you can remove this if your code does not rely on old JUnit 4 rules
+
+  // optional dependencies for using Spock
+  testImplementation "org.hamcrest:hamcrest-core:2.2"   // only necessary if Hamcrest matchers are used
+  testRuntimeOnly 'net.bytebuddy:byte-buddy:1.14.11' // allows mocking of classes (in addition to interfaces)
+  testRuntimeOnly "org.objenesis:objenesis:3.3"      // allows mocking of classes without default constructor (together with ByteBuddy or CGLIB)
+
+  //spotless
+  implementation("com.diffplug.spotless:spotless-lib:${spotlessLibVersion}")
+  implementation("com.diffplug.spotless:spotless-plugin-gradle:${spotlessVersion}")
 }
 
 test {
-    useJUnitPlatform()
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
+  useJUnitPlatform()
+  testLogging {
+    events "passed", "skipped", "failed"
+  }
 }
+
+spotless {
+  java{
+    googleJavaFormat()
+    indentWithSpaces(2)
+  }
+
+  groovy{
+    indentWithSpaces(2)
+  }
+
+  groovyGradle{
+    greclipse()
+    indentWithSpaces(2)
+  }
+  //    java {
+  //        target fileTree('.') {
+  //            include '**/*.java'
+  //            exclude '**/build/**', '**/build-*/**'
+  //        }
+  //        toggleOffOn()
+  //        palantirJavaFormat()
+  //        removeUnusedImports()
+  //        trimTrailingWhitespace()
+  //        endWithNewline()
+  //    }
+}
+compileJava.dependsOn 'spotlessApply'
+compileGroovy.dependsOn 'spotlessApply'
