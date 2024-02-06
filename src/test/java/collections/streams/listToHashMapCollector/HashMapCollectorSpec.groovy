@@ -1,4 +1,4 @@
-package collections.streams.hashMapCollector
+package collections.streams.listToHashMapCollector
 
 import spock.lang.Specification
 
