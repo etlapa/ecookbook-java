@@ -1,0 +1,25 @@
+.gradle/
+build/
+target/
+classes/
+out/
+bin/
+
+### STS (optional) ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### Other ###
+.DS_Store
+logs/
+.vscode/*
