@@ -1,5 +1,7 @@
-package collections.streams.listToHashMapCollector;
+package completableFuture.MultipleAsynClientsToList;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -7,10 +9,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 @Getter
 @AllArgsConstructor
-public class Account {
+public class TransactionDetails {
   private String accountId;
-  private String name;
-  private String accountNumber;
+  private String transactionId;
+  private BigDecimal amount;
+  private LocalDate date;
+  private String description;
 
   @Override
   public String toString() {

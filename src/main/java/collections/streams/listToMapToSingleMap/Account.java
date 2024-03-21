@@ -1,4 +1,4 @@
-package collections.streams.listToHashMapCollector;
+package collections.streams.listToMapToSingleMap;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +11,7 @@ public class Account {
   private String accountId;
   private String name;
   private String accountNumber;
+  private boolean linked;
 
   @Override
   public String toString() {

@@ -1,4 +1,4 @@
-package collections.streams.listToHashMapCollector;
+package collections.streams.listToKeyObjectMap;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
