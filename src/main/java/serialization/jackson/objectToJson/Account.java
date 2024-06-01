@@ -4,9 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-/**
- * Using ToString from Lombok
- */
+/** Using ToString from Lombok */
 @Getter
 @Builder
 @ToString

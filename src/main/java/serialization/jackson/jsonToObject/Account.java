@@ -4,9 +4,7 @@ import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-/**
- * Using ToStringBuilder from Apache
- */
+/** Using ToStringBuilder from Apache */
 @Data
 public class Account {
   private String accountId;
